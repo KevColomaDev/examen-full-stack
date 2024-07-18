@@ -1,0 +1,31 @@
+{
+  "name": "examen-full-stack-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevColomaDev/examen-full-stack-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevColomaDev/examen-full-stack-backend/issues"
+  },
+  "homepage": "https://github.com/KevColomaDev/examen-full-stack-backend#readme",
+  "dependencies": {
+    "express": "4.19.2"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
