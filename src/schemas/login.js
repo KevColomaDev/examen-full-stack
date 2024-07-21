@@ -5,10 +5,8 @@ const loginSchema = z.object({
   password: z.string()
 })
 
-const requieredFields = loginSchema.required()
-
 export const validateLogin = (data) => {
-  const isValid = requieredFields.safeParse(data)
+  const isValid = loginSchema.safeParse(data)
   if (!isValid.success) {
     return isValid.error
   }
