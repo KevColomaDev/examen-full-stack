@@ -8,7 +8,8 @@ export const login = async (req, res) => {
     if (!administratorLogin) {
       return res.status(401).json({ msg: 'Wrong email or password' })
     }
-    return res.status(200).json(administratorLogin)
+    const { _id, password, ...others } = administratorLogin
+    return res.status(200).json({ administratorLogin: others })
   } catch (error) {
     console.log(error)
   }

@@ -1,7 +1,7 @@
 import { connectDB } from '../database.js'
 
 const db = await connectDB()
-const collectionAdmin = db.collection('administrators')
+const collectionAdmin = db.collection('Administrators')
 
 export const administrators = {
   async login (email, password) {
