@@ -1,4 +1,5 @@
 import e from 'express'
+import { router } from './routers/administrators.js'
 
 export const app = e()
 
@@ -6,6 +7,4 @@ export const app = e()
 app.use(e.json())
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Final exam')
-})
+app.use('/administrators', router)

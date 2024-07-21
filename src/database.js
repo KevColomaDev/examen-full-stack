@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { config } from 'dotenv'
 config()
 
-const URI = process.env.MONGO_URI
+const URI = process.env.MONGO_URI_ATLAS
 
 export const connectDB = async () => {
   try {
@@ -12,5 +12,6 @@ export const connectDB = async () => {
     return client.db('Solca')
   } catch (error) {
     console.log(error.message)
+    throw error
   }
 }
