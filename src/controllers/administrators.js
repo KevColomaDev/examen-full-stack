@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 export const login = async (req, res) => {
   try {
     const administrator = validateLogin(req.body)
-    if (!administrator.email || !administrator.password) {
+    if (!administrator.email || !administrator.password || administrator.email === '' || administrator.password === '') {
       return res.status(401).json({ msg: 'Neccesary email and password' })
     }
     const administratorLogin = await administrators.login(administrator.email, administrator.password)
