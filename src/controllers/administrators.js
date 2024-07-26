@@ -15,7 +15,11 @@ export const login = async (req, res) => {
     }
     const token = jwt.sign({ administratorLogin }, process.env.JWT_SECRET)
     console.log(token)
-    res.cookie('token', token)
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true
+    })
 
     const { _id, password, ...others } = administratorLogin
     return res.status(200).json({ administratorLogin: others })
