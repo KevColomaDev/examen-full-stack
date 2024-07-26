@@ -6,9 +6,9 @@ import cors from 'cors'
 export const app = e()
 
 // Middlewares
+app.use(cookieParser())
 app.use(cors())
 app.use(e.json())
-app.use(cookieParser())
 
 // Routes
 app.use('/administrators', router)
