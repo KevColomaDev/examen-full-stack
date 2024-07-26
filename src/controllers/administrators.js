@@ -18,7 +18,8 @@ export const login = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       sameSite: 'none',
-      secure: true
+      secure: true,
+      partitioned: true
     })
 
     const { _id, password, ...others } = administratorLogin
