@@ -1,6 +1,7 @@
 import { administrators } from '../models/administrators.js'
 import { validateLogin } from '../schemas/login.js'
-import { validateRegisterPatient } from '../schemas/registerPatient.js'
+import { validateRegisterInRoom } from '../schemas/registerInRoom.js'
+// import { validateRegisterPatient } from '../schemas/registerPatient.js'
 import jwt from 'jsonwebtoken'
 
 export const login = async (req, res) => {
@@ -29,9 +30,10 @@ export const login = async (req, res) => {
   }
 }
 
+/*
 export const registerPatient = async (req, res) => {
   const validateDate = (date) => {
-    let regex = /^\d{2}\/\d{1}\/\d{4}$/
+    let regex = /^\d{1}\/\d{1}\/\d{4}$/
     if (regex.test(date)) {
       return date
     } else {
@@ -49,14 +51,101 @@ export const registerPatient = async (req, res) => {
       return res.status(401).json({ msg: 'Neccesary name and habitation' })
     }
     const validAdmissionDate = validateDate(patient.admissionDate)
-    const validDepartureDate = validateDate(patient.departureDate)
+    // const validDepartureDate = validateDate(patient.departureDate)
 
-    if (!validAdmissionDate || !validDepartureDate) {
-      return res.status(401).json({ msg: 'Invalid admission date or departure date' })
+    if (!validAdmissionDate) {
+      return res.status(401).json({ msg: 'Invalid admission date' })
     }
 
     await administrators.registerPatient(patient)
     return res.status(200).json({ msg: 'Patient registered' })
+  } catch (error) {
+    console.log(error)
+  }
+}
+*/
+export const registerInRoom = async (req, res) => {
+  const validateDate = (date) => {
+    let regex = /^\d{1}\/\d{1}\/\d{4}$/
+    if (regex.test(date)) {
+      return date
+    } else {
+      regex = /^\d{2}\/\d{2}\/\d{4}$/
+      if (regex.test(date)) {
+        return date
+      }
+    }
+  }
+  try {
+    const patient = validateRegisterInRoom(req.body)
+    if (!patient.h_number || !patient.name) {
+      return res.status(401).json({ msg: 'Neccesary name and room' })
+    }
+
+    const validAdmissionDate = validateDate(patient.admissionDate)
+    if (!validAdmissionDate) {
+      return res.status(401).json({ msg: 'Invalid admission date' })
+    }
+    await administrators.registerInRoom(patient)
+    return res.status(200).json({ msg: 'Patient registered' })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getDataRoom = async (req, res) => {
+  try {
+    const hNumber = parseInt(req.params.hNumber)
+    const roomData = await administrators.getDataRoom(hNumber)
+    return res.status(200).json(roomData)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const setParamsinBlank = async (req, res) => {
+  try {
+    const hNumber = parseInt(req.params.hNumber)
+    const roomData = await administrators.getDataRoom(hNumber)
+    console.log(roomData)
+    roomData.name = '---'
+    roomData.condition = '---'
+    roomData.food = '---'
+    roomData.admissionDate = '--/---/----'
+    const { _id, ...others } = roomData
+
+    await administrators.setParamsinBlank(roomData)
+    return res.status(200).json(others)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const dietData = async (req, res) => {
+  try {
+    const allRooms = await administrators.getAllRooms()
+    const totalRooms = allRooms.length
+    let availableRooms = 0
+    let normalDiet = 0
+    let blandDiet = 0
+    let liquidDiet = 0
+    for (let i = 0; i < totalRooms; i++) {
+      const room = allRooms[i]
+      if (room.name === '---') {
+        availableRooms += 1
+      }
+      if (room.food === 'Blanda') {
+        blandDiet += 1
+      }
+      if (room.food === 'Normal') {
+        normalDiet += 1
+      }
+      if (room.food === 'Liquida') {
+        liquidDiet += 1
+      }
+    }
+    // console.log(availableRooms)
+    return res.status(200).json({ availableRooms, normalDiet, blandDiet, liquidDiet })
   } catch (error) {
     console.log(error)
   }
