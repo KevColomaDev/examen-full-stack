@@ -1,7 +1,7 @@
 import z from 'zod'
 
 const registerInRoomSchema = z.object({
-  h_number: z.number().min(1).max(9),
+  h_number: z.number().min(1).max(15),
   name: z.string(),
   condition: z.string(),
   food: z.string(),
