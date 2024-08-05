@@ -150,3 +150,28 @@ export const dietData = async (req, res) => {
     console.log(error)
   }
 }
+
+export const logout = async (req, res) => {
+  res.clearCookie('token')
+  res.cookie('token', null, {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: true,
+    partitioned: true
+  })
+  return res.status(200).json({ msg: 'Logged out' })
+}
+
+export const verifyToken = async (req, res) => {
+  const token = req.cookies.token
+  if (!token) {
+    return res.status(401).json({ msg: 'Unauthorized' })
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    req.user = decoded
+    return res.status(200).json({ msg: 'Authorized' })
+  } catch (error) {
+    console.log(error)
+  }
+}

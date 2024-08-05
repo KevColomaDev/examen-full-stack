@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { login, registerInRoom, getDataRoom, setParamsinBlank, dietData } from '../controllers/administrators.js'
+import { login, registerInRoom, getDataRoom, setParamsinBlank, dietData, logout, verifyToken } from '../controllers/administrators.js'
 import { authLogin } from '../middlewares/authLogin.js'
 
 export const router = Router()
@@ -11,3 +11,5 @@ router.post('/register-in-room', authLogin, registerInRoom)
 router.get('/data-room/:hNumber', authLogin, getDataRoom)
 router.get('/set-params-in-blank/:hNumber', authLogin, setParamsinBlank)
 router.get('/diet-data', authLogin, dietData)
+router.get('/logout', authLogin, logout)
+router.get('/verify', authLogin, verifyToken)
