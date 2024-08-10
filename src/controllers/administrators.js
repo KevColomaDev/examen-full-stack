@@ -152,8 +152,7 @@ export const dietData = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
-  res.clearCookie('token')
-  res.cookie('token', null, {
+  res.clearCookie('token', {
     httpOnly: true,
     sameSite: 'none',
     secure: true,

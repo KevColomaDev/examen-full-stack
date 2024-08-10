@@ -1,5 +1,6 @@
 import e from 'express'
 import { router } from './routers/administrators.js'
+import { routerSupplies } from './routers/supplies.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
@@ -12,3 +13,4 @@ app.use(e.json())
 
 // Routes
 app.use('/administrators', router)
+app.use('/supplies', routerSupplies)
