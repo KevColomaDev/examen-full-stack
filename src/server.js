@@ -8,7 +8,8 @@ export const app = e()
 
 const allowedOrigins = [
   'http://localhost:3000', // Development
-  'https://examen-full-stack-frontend.vercel.app/' // Production
+  'https://examen-full-stack-frontend.vercel.app/', // Production
+  '*'
 ]
 
 // Middlewares
@@ -23,7 +24,7 @@ app.use(cors({
     }
   },
   credentials: true, // Permite el uso de cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Métodos permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Métodos permitidos
 }))
 app.use(e.json())
 
