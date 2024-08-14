@@ -24,7 +24,8 @@ app.use(cors({
     }
   },
   credentials: true, // Permite el uso de cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Métodos permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization']
 }))
 app.use(e.json())
 
