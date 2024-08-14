@@ -1,33 +1,33 @@
 import { connectDB } from '../database.js'
 
 const db = await connectDB()
-export const collectionSuplies = db.collection('Suplies')
+export const collectionSuplies = db.collection('Supplies')
 
 export const supplies = {
-  async getSuplies () {
+  async getSupplies () {
     try {
-      const suplies = await collectionSuplies.find().toArray()
-      return suplies
+      const supplies = await collectionSuplies.find().toArray()
+      return supplies[0]
     } catch (error) {
       console.log(error.message)
     }
   },
 
-  async registerSuplies (suplies) {
+  async registerSupplies (supplies) {
     try {
-      const newSuplies = await collectionSuplies.findOneAndUpdate({ name: suplies.name }, { $set: suplies }, { upsert: true })
-      return newSuplies
-    } catch (error) {
-      console.log(error.message)
-    }
-  },
-
-  async registerSupliesRoom (suplies) {
-    try {
-      const newSuplies = await collectionSuplies.findOneAndUpdate({ name: suplies.name }, { $set: suplies }, { upsert: true })
-      return newSuplies
+      const newSupplies = await collectionSuplies.findOneAndUpdate({ name: supplies.name }, { $set: supplies }, { upsert: true })
+      return newSupplies
     } catch (error) {
       console.log(error.message)
     }
   }
+
+  // async registerSupliesRoom (suplies) {
+  //   try {
+  //     const newSuplies = await collectionSuplies.findOneAndUpdate({ name: suplies.name }, { $set: suplies }, { upsert: true })
+  //     return newSuplies
+  //   } catch (error) {
+  //     console.log(error.message)
+  //   }
+  // }
 }

@@ -1,26 +1,36 @@
 import { supplies, collectionSuplies } from '../models/supplies.js'
 import { validateRegisterSupplies } from '../schemas/registerSupplies.js'
 
+export const getSupplies = async (req, res) => {
+  try {
+    const getSupplies = await supplies.getSupplies()
+    const { _id, ...others } = getSupplies
+    return res.status(200).json(others)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const suppliesRegister = async (req, res) => {
   try {
-    const suplies = validateRegisterSupplies(req.body)
-    const oldSuplies = await collectionSuplies.findOne({ name: suplies.name })
-    console.log(oldSuplies)
-    let toothPaste = oldSuplies.toothPaste
-    let soap = oldSuplies.soap
-    let toothBrush = oldSuplies.toothBrush
-    let towel = oldSuplies.towel
-    if (suplies.toothPaste) {
-      toothPaste += suplies.toothPaste
+    const suppliesInput = validateRegisterSupplies(req.body)
+    const oldSupplies = await collectionSuplies.findOne({ name: supplies.name })
+    console.log(oldSupplies)
+    let toothPaste = oldSupplies.toothPaste
+    let soap = oldSupplies.soap
+    let toothBrush = oldSupplies.toothBrush
+    let towel = oldSupplies.towel
+    if (suppliesInput.toothPaste) {
+      toothPaste += suppliesInput.toothPaste
     }
-    if (suplies.soap) {
-      soap += suplies.soap
+    if (suppliesInput.soap) {
+      soap += suppliesInput.soap
     }
-    if (suplies.toothBrush) {
-      toothBrush += suplies.toothBrush
+    if (suppliesInput.toothBrush) {
+      toothBrush += suppliesInput.toothBrush
     }
-    if (suplies.towel) {
-      towel += suplies.towel
+    if (suppliesInput.towel) {
+      towel += suppliesInput.towel
     }
     const updateSupplies = {
       toothPaste,
@@ -28,7 +38,7 @@ export const suppliesRegister = async (req, res) => {
       toothBrush,
       towel
     }
-    await supplies.registerSuplies(updateSupplies)
+    await supplies.registerSupplies(updateSupplies)
     return res.status(200).json({ msg: 'Supplies registered', updateSupplies })
   } catch (error) {
     console.log(error)
