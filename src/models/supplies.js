@@ -1,6 +1,4 @@
-import { connectDB } from '../database.js'
-
-const db = await connectDB()
+import { db } from './administrators.js'
 export const collectionSuplies = db.collection('Supplies')
 
 export const supplies = {

@@ -1,6 +1,6 @@
 import { connectDB } from '../database.js'
 
-const db = await connectDB()
+export const db = await connectDB()
 const collectionAdmin = db.collection('Administrators')
 const collectionPatients = db.collection('Patients')
 const collectionRooms = db.collection('Rooms')
