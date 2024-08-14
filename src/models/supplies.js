@@ -1,4 +1,4 @@
-import { db } from './administrators.js'
+import { db, collectionRooms } from './administrators.js'
 export const collectionSuplies = db.collection('Supplies')
 
 export const supplies = {
@@ -18,14 +18,16 @@ export const supplies = {
     } catch (error) {
       console.log(error.message)
     }
+  },
+  async registerSupliesRoom (supplies) {
+    try {
+      const findRoom = await collectionRooms.findOne({ h_number: supplies.h_number })
+      const newSupplies = await collectionSuplies.findOneAndUpdate({ name: supplies.name }, { $set: supplies }, { upsert: true })
+      console.log(findRoom)
+      console.log(newSupplies)
+      return newSupplies
+    } catch (error) {
+      console.log(error.message)
+    }
   }
-
-  // async registerSupliesRoom (suplies) {
-  //   try {
-  //     const newSuplies = await collectionSuplies.findOneAndUpdate({ name: suplies.name }, { $set: suplies }, { upsert: true })
-  //     return newSuplies
-  //   } catch (error) {
-  //     console.log(error.message)
-  //   }
-  // }
 }
