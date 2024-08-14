@@ -8,7 +8,7 @@ export const app = e()
 
 // Middlewares
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: 'http://localhost:3000', methods: ['GET', 'POST', 'PUT', 'DELETE'] }))
+app.use(cors({ credentials: true, origin: 'https://examen-full-stack-frontend.onrender.com', methods: ['GET', 'POST', 'PUT', 'DELETE'] }))
 app.use(e.json())
 
 // Routes
